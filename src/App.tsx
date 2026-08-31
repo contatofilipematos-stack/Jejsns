@@ -289,6 +289,13 @@ export default function App() {
     window.location.href = finalUrl;
   };
 
+  const scrollToGallery = () => {
+    const section = document.getElementById('conteudo-livro');
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const scrollToPricing = () => {
     const section = document.getElementById('sessao-pagamento');
     if (section) {
@@ -316,7 +323,7 @@ export default function App() {
             <div className="absolute -top-4 -left-10 w-32 h-16 bg-white/80 rounded-full blur-md opacity-70"></div>
             <div className="absolute top-10 -right-16 w-40 h-20 bg-white/60 rounded-full blur-md opacity-80"></div>
 
-            <h1 className="text-[26px] sm:text-[30px] font-black font-heading text-sky-pastel-950 leading-[1.25] tracking-tight max-w-md mx-auto my-5 text-center px-1">
+            <h1 className="text-[34px] font-black font-heading text-sky-pastel-950 leading-[1.25] tracking-tight max-w-md mx-auto my-5 text-center px-1">
               Lembrancinhas de Fé <br />
               <span className="text-pink-500 inline-block">Prontas para Imprimir</span>
             </h1>
@@ -333,7 +340,7 @@ export default function App() {
 
           {/* DYNAMIC COMPACT HERO CALL TO ACTION (CTA) */}
           <section className="px-5 pb-9 text-center">
-            <HeroCTALimitedOffer onCTAClick={scrollToPricing} />
+            <HeroCTALimitedOffer onCTAClick={scrollToGallery} />
           </section>
 
           {/* SESSÃO GALERIA DE MODELOS */}
@@ -356,7 +363,7 @@ export default function App() {
 
             {/* SECTION MATCHED CTA */}
             <div className="mt-10 px-4">
-              <SectionCTA onCTAClick={scrollToBonus} />
+              <SectionCTA onCTAClick={scrollToPricing} />
             </div>
           </section>
 
