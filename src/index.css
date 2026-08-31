@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-heading: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
+  
+  --color-sky-pastel-50: #f0f8ff;
+  --color-sky-pastel-100: #e0f2fe;
+  --color-sky-pastel-200: #bae6fd;
+  --color-sky-pastel-300: #7dd3fc;
+  --color-sky-pastel-400: #38bdf8;
+  --color-sky-pastel-500: #0ea5e9;
+  --color-sky-pastel-600: #0284c7;
+  --color-sky-pastel-700: #0369a1;
+  --color-sky-pastel-800: #075985;
+  --color-sky-pastel-900: #0c4a6e;
+  
+  --color-feminine-pink: #fdf2f8;
+  --color-feminine-accent: #f472b6;
+  --color-angelic-white: #ffffff;
+}
+
+@keyframes textGlow {
+  0%, 100% { text-shadow: 0 0 4px rgba(56, 189, 248, 0.4); }
+  50% { text-shadow: 0 0 12px rgba(56, 189, 248, 0.8); }
+}
+
+@keyframes ripple {
+  0% { transform: scale(0.95); opacity: 0.5; }
+  50% { transform: scale(1.05); opacity: 0.8; }
+  100% { transform: scale(1.15); opacity: 0; }
+}
+
+.ripple-effect {
+  position: relative;
+}
+.ripple-effect::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: inherit;
+  border: 2px solid var(--color-sky-pastel-400);
+  animation: ripple 2s infinite ease-out;
+}
+
+@keyframes pulse-premium-card {
+  0%, 100% { transform: scale(1.05); }
+  50% { transform: scale(1.07); }
+}
+
+.animate-pulse-premium-card {
+  animation: pulse-premium-card 3s ease-in-out infinite;
+}
+
+@keyframes pulse-premium-button {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+.animate-pulse-premium-button {
+  animation: pulse-premium-button 2s ease-in-out infinite;
+}
+
+@keyframes infiniteScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-infinite-scroll {
+  animation: infiniteScroll 35s linear infinite;
+}
+
+/* Image protection & anti-download rules */
+img, svg {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+  -webkit-user-drag: none !important;
+  -webkit-touch-callout: none !important;
+  pointer-events: none !important;
+}
+
+body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+

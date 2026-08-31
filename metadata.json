@@ -1,0 +1,8 @@
+{
+  "name": "Remix Livrinho de Orações latam",
+  "description": "Página de vendas mobile de alta conversão para o livrinho de orações católicas para catequese infantil.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

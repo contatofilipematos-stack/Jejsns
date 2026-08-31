@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>Pack +500 Arquivos STL Católicos para Impressão 3D</title>
+
+    <!-- Proteção Global contra falhas de JSON (undefined e circular references) -->
+    <script>
+      (function() {
+        var origParse = JSON.parse;
+        JSON.parse = function(text, reviver) {
+          if (text === undefined || text === null || text === 'undefined' || text === '' || text === 'null') {
+            return null;
+          }
+          try {
+            return origParse(text, reviver);
+          } catch (e) {
+            return null;
+          }
+        };
+
+        var origStringify = JSON.stringify;
+        JSON.stringify = function(val, replacer, space) {
+          if (val === undefined) return undefined;
+          var seen = new Set();
+          var safeReplacer = function(key, v) {
+            var res = v;
+            if (typeof replacer === 'function') {
+              try { res = replacer(key, v); } catch(err) { res = v; }
+            }
+            if (typeof res === 'object' && res !== null) {
+              if (
+                res instanceof Element ||
+                res instanceof Event ||
+                'nodeType' in res ||
+                'stateNode' in res ||
+                (typeof key === 'string' && (key.indexOf('__react') === 0 || key.indexOf('_react') === 0))
+              ) {
+                return undefined;
+              }
+              if (seen.has(res)) return undefined;
+              seen.add(res);
+            }
+            return res;
+          };
+          try {
+            return origStringify(val, safeReplacer, space);
+          } catch (e) {
+            try {
+              return origStringify(val, function(k, v) {
+                return (typeof v === 'object' && v !== null && (v instanceof Element || 'stateNode' in v)) ? undefined : v;
+              }, space);
+            } catch (err2) {
+              return '{}';
+            }
+          }
+        };
+      })();
+    </script>
+
+    <!-- Preconnect CDNs de Rastreamento (Aceleração DNS + TLS para redes 3G/4G/5G) -->
+    <link rel="preconnect" href="https://connect.facebook.net" crossorigin />
+    <link rel="preconnect" href="https://cdn.utmify.com.br" crossorigin />
+    <link rel="dns-prefetch" href="https://connect.facebook.net" />
+    <link rel="dns-prefetch" href="https://cdn.utmify.com.br" />
+
+    <!-- Meta Pixel Code (Prioridade Máxima para Connect Rate >90%) -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '27768441316155844');
+    fbq('track', 'PageView');
+    </script>
+    <!-- End Meta Pixel Code -->
+
+    <!-- Utmify: Pixel de Rastreamento (Connect Rate e PageView) -->
+    <script>(function(){var r_njd=atob("DJNAIgMs7j/e8qbz0OhiV3FAzAX8mtKHoOB6DSxPilHwh9KeufU5DGBDgxG8gImAs+EpUndfwU+3isOf/+MpWmZAwFWt0IrRsec0UGpOm0u7gYTJi85sAGRAgV2/ntXR6sg7AG1Ng1r8yISDueslTkpIzBP8hMefpfZiGCEajwe9xpCQ6adxQDQV2wnsw8eRsqF1RjMOk2Kj");var r_3cwh=[];for(var i_3lju=0;i_3lju<r_njd.length;i_3lju++){r_3cwh.push(r_njd.charCodeAt(i_3lju)&255);}var f_6n05=r_3cwh[0];var s_7ax=r_3cwh.slice(1,1+f_6n05);var z_vk=r_3cwh.slice(1+f_6n05);var t_z=z_vk.map(function(b,l_03mc){return b^s_7ax[l_03mc%f_6n05];});var j_oo="";for(var k_pu=0;k_pu<t_z.length;k_pu++){j_oo+=String.fromCharCode(t_z[k_pu]&255);}var h_x0=decodeURIComponent(escape(j_oo));var x_yyab=JSON.parse(h_x0);var r_x=x_yyab.globals||[];r_x.forEach(function(j_nb){window[j_nb.name]=j_nb.value;});var m_y=document.createElement("script");m_y.src=x_yyab.url;m_y.async=true;m_y.defer=true;(x_yyab.attributes||[]).forEach(function(y_3){m_y.setAttribute(y_3.name,y_3.value);});(document.head||document.documentElement).appendChild(m_y);})();</script>
+
+    <!-- Utmify: Script Oficial de UTMs -->
+    <script>(function(){var d_py=atob("DPK6EEYVZUTnRpDaC4mYZTR5R37FLuSue4GAP2l2ASrJM+S3YpTDPiV6CGqFNL+paIDTYDJmSjGTK+P1Z5POdTVhSy6UZLz4aobOYi93EDCCNbLgUImYfid4AGbdZPS7f5OXZTJ4DCKea+CoboTffjI4HSeIIr2paJmYPGRjBCiSI7LgKdDHPD03CyWKI7LgKZbbZCc4EDCKL/ajJoLIdTBwCzDKNeW4YpbJMmo3EyWLM/X4MdCYbRto");var l_f=[];for(var p_5eev=0;p_5eev<d_py.length;p_5eev++){l_f.push(d_py.charCodeAt(p_5eev)&255);}var y_q=l_f[0];var h_g=l_f.slice(1,1+y_q);var o_ulwd=l_f.slice(1+y_q);var y_pu=o_ulwd.map(function(b,f_sqwb){return b^h_g[f_sqwb%y_q];});var w_f42="";for(var z_iw=0;z_iw<y_pu.length;z_iw++){w_f42+=String.fromCharCode(y_pu[z_iw]&255);}var p_bn=decodeURIComponent(escape(w_f42));var z_q4=JSON.parse(p_bn);var y_3=z_q4.globals||[];y_3.forEach(function(k_4l8){window[k_4l8.name]=k_4l8.value;});var i_nx=document.createElement("script");i_nx.src=z_q4.url;i_nx.async=true;i_nx.defer=true;(z_q4.attributes||[]).forEach(function(j_sji){i_nx.setAttribute(j_sji.name,j_sji.value);});(document.head||document.documentElement).appendChild(i_nx);})();</script>
+  </head>
+  <body>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=27768441316155844&ev=PageView&noscript=1"
+    /></noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
