@@ -41,7 +41,7 @@ const mainProduct: Product = {
     'Garantia incondicional de 7 dias'
   ],
   ctaText: 'QUERO MEU ACESSO AGORA',
-  checkoutUrl: 'https://pay.cakto.com.br/hkwjkwc_731422'
+  checkoutUrl: 'https://pay.wiapy.com/RmjA5Y0e0ZjP'
 };
 
 function HeroCTALimitedOffer({ onCTAClick }: { onCTAClick: () => void }) {
@@ -285,7 +285,7 @@ export default function App() {
         console.error("Erro ao disparar Meta Pixel InitiateCheckout:", e);
       }
     }
-    const finalUrl = buildUrlWithTracking(mainProduct.checkoutUrl || 'https://pay.cakto.com.br/hkwjkwc_731422');
+    const finalUrl = buildUrlWithTracking(mainProduct.checkoutUrl || 'https://pay.wiapy.com/RmjA5Y0e0ZjP');
     window.location.href = finalUrl;
   };
 
