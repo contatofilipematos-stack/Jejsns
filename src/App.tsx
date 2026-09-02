@@ -41,7 +41,7 @@ const mainProduct: Product = {
     'Garantia incondicional de 7 dias'
   ],
   ctaText: 'QUERO MEU ACESSO AGORA',
-  checkoutUrl: 'https://pay.wiapy.com/RmjA5Y0e0ZjP'
+  checkoutUrl: 'https://pay.lowify.com.br/checkout?product_id=qc6DQ9'
 };
 
 function HeroCTALimitedOffer({ onCTAClick }: { onCTAClick: () => void }) {
@@ -214,44 +214,52 @@ export default function App() {
       const urlObj = new URL(baseUrl);
       const trackerParams: Record<string, string> = {};
 
-      const trackingKeywords = [
-        'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term',
-        'src', 'sck', 'subid', 'subid2', 'subid3', 'subid4', 'subid5',
-        'fbclid', 'gclid', 'ttclid', 'xcod', 'h_src'
-      ];
-
-      const sanitizeKey = (k: string) => {
-        let clean = k.toLowerCase().trim();
-        clean = clean.replace(/^(utmify_|utm_|tracker_|pixel_)/, (match) => {
-          if (match === 'utm_') return 'utm_';
-          return '';
-        });
-        return clean;
-      };
-
+      // 1. Capture every search param from the current URL
       const currentParams = new URLSearchParams(window.location.search);
       currentParams.forEach((val, key) => {
         if (val && val !== 'undefined' && val !== 'null' && val.trim() !== '') {
-          trackerParams[sanitizeKey(key)] = val;
+          trackerParams[key] = val;
         }
       });
 
+      // 2. Capture all tracking and UTMify keys from LocalStorage
       try {
         for (let i = 0; i < localStorage.length; i++) {
           const rawKey = localStorage.key(i);
           if (rawKey) {
-            const clean = sanitizeKey(rawKey);
-            const isTrackingKey = trackingKeywords.includes(clean) || 
-                                 rawKey.includes('utm') || 
-                                 rawKey.includes('_utmify_') ||
-                                 rawKey.includes('subid') ||
-                                 rawKey.includes('xcod');
+            const val = localStorage.getItem(rawKey);
+            if (val && val !== 'undefined' && val !== 'null' && val.trim() !== '') {
+              const lower = rawKey.toLowerCase();
+              if (
+                lower.startsWith('utm_') ||
+                lower === 'src' ||
+                lower === 'sck' ||
+                lower.startsWith('subid') ||
+                lower === 'fbclid' ||
+                lower === 'gclid' ||
+                lower === 'ttclid' ||
+                lower === 'xcod' ||
+                lower === 'h_src'
+              ) {
+                if (!trackerParams[rawKey]) {
+                  trackerParams[rawKey] = val;
+                }
+              }
 
-            if (isTrackingKey) {
-              const val = localStorage.getItem(rawKey);
-              if (val && val !== 'undefined' && val !== 'null' && val.trim() !== '') {
-                if (!trackerParams[clean]) {
-                  trackerParams[clean] = val;
+              // Parse JSON stored by UTMify or lead tracking scripts
+              if (lower.includes('utmify') || lower.includes('lead') || lower.includes('tracking')) {
+                try {
+                  const parsed = JSON.parse(val);
+                  if (typeof parsed === 'object' && parsed !== null) {
+                    Object.keys(parsed).forEach((k) => {
+                      const paramVal = parsed[k];
+                      if (paramVal && typeof paramVal === 'string' && !trackerParams[k]) {
+                        trackerParams[k] = paramVal;
+                      }
+                    });
+                  }
+                } catch {
+                  // Ignore non-JSON
                 }
               }
             }
@@ -261,7 +269,50 @@ export default function App() {
         console.error("Erro ao ler LocalStorage dinamicamente:", e);
       }
 
-      Object.keys(trackerParams).forEach(key => {
+      // 3. Capture all tracking cookies (UTMify, Meta, Google, etc.)
+      try {
+        const cookies = document.cookie.split(';');
+        cookies.forEach((c) => {
+          const [rawK, rawV] = c.trim().split('=');
+          if (rawK && rawV) {
+            const key = rawK.trim();
+            const val = decodeURIComponent(rawV.trim());
+            const lower = key.toLowerCase();
+            if (
+              lower.startsWith('utm_') ||
+              lower === 'src' ||
+              lower === 'sck' ||
+              lower.startsWith('subid') ||
+              lower === 'fbclid' ||
+              lower === 'xcod' ||
+              lower.startsWith('_utmify')
+            ) {
+              if (!trackerParams[key]) {
+                trackerParams[key] = val;
+              }
+            }
+          }
+        });
+      } catch (e) {
+        // Ignore cookie parsing error
+      }
+
+      // 4. Capture any tracking globals from window (e.g. window.utmify)
+      try {
+        if ((window as any).utmify && typeof (window as any).utmify === 'object') {
+          const u = (window as any).utmify;
+          Object.keys(u).forEach((k) => {
+            if (typeof u[k] === 'string' && u[k] && !trackerParams[k]) {
+              trackerParams[k] = u[k];
+            }
+          });
+        }
+      } catch (e) {
+        // Ignore window global error
+      }
+
+      // 5. Append all parameters to checkout URL
+      Object.keys(trackerParams).forEach((key) => {
         urlObj.searchParams.set(key, trackerParams[key]);
       });
 
@@ -273,19 +324,35 @@ export default function App() {
   };
 
   const handleBuyClick = () => {
+    // 1. Meta Pixel InitiateCheckout Event
     if (typeof (window as any).fbq === 'function') {
       try {
         (window as any).fbq('track', 'InitiateCheckout', {
+          content_name: 'Pacote Completo Lembrancinhas de Fé',
           content_ids: ['completo'],
           content_type: 'product',
-          value: 10,
+          value: 10.00,
           currency: 'BRL'
         });
       } catch (e) {
         console.error("Erro ao disparar Meta Pixel InitiateCheckout:", e);
       }
     }
-    const finalUrl = buildUrlWithTracking(mainProduct.checkoutUrl || 'https://pay.wiapy.com/RmjA5Y0e0ZjP');
+
+    // 2. UTMify / Lead tracker custom InitiateCheckout trigger
+    try {
+      if (typeof (window as any).utmify?.track === 'function') {
+        (window as any).utmify.track('InitiateCheckout', {
+          value: 10.00,
+          currency: 'BRL'
+        });
+      }
+    } catch (e) {
+      // Ignore utmify custom event errors
+    }
+
+    // 3. Build fully tracked destination URL and redirect
+    const finalUrl = buildUrlWithTracking(mainProduct.checkoutUrl || 'https://pay.lowify.com.br/checkout?product_id=qc6DQ9');
     window.location.href = finalUrl;
   };
 
